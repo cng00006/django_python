@@ -1,5 +1,28 @@
 #!/usr/bin/python
 
+def local_repo():
+    repo="""[local-epel]
+name=NTI300 EPEL
+baseurl=http:/35.192.217.88/epel/
+gpgcheck=0
+enabled=1"""
+    print(repo)
+    with open("/etc/yum.repos.d/local-repo.repo","w+") as f:
+      f.write(repo)
+    f.close()
+        
+    on="enabled=1"
+    off="enabled=0"
+
+    with open('/etc/yum.repos.d/epel.repo') as f:
+      dissablerepo=f.read().replace(on, off)
+    f.close()
+
+    with open('/etc/yum.repos.d/epel.repo', "w") as f:
+      f.write(dissablerepo)
+    f.close()
+
+local_repo()
 import os
 import re
 import subprocess
